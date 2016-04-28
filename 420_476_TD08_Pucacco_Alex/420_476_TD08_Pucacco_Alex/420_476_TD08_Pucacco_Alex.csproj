@@ -245,6 +245,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\NewFolder1\StyleSheet1.css" />
     <Content Include="Models\sbdahbfhjilabnflajn\WebForm1.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
