@@ -3,38 +3,40 @@
     ViewBag.Title = "Login";
 }
 
-<div id="mainDiv" style="align-content:center">
-    <div id="headerDiv">
-        <h2>Se connecter à votre compte</h2>
-    </div>
-    <div id="fillUpDiv">
-        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
-        {
-            <table>
-                <tr>
-                    <td>
-                        <label>Identifiant</label>
-                    </td>
-                    <td>
-                        <input type="text" name="login" id="login"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Mot de passe</label>
-                    </td>
-                    <td>
-                        <input type="password" name="password" id="password"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="submit" value="Se connecter"/>
-                    </td>
-                </tr>
-            </table>
-        }
+<div id="mainDiv" style="width: 100%; text-align: center">
+    <div id="contentDiv" style="display: inline-block;">
+        <div id="headerDiv">
+            <h2>Se connecter à votre compte</h2>
+        </div>
+        <div id="fillUpDiv">
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                <table>
+                    <tr>
+                        <td>
+                            <label>Identifiant</label>
+                        </td>
+                        <td>
+                            <input type="text" name="login" id="login" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Mot de passe</label>
+                        </td>
+                        <td>
+                            <input type="password" name="password" id="password" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" value="Se connecter" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
     </div>
 </div>
 
