@@ -21,6 +21,28 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Login(string login, string password)
+        {
+            if (login != null && password != null)
+            {
+                foreach (User u in db.Users)
+                {
+                    if (u.login == login && u.password == password)
+                    {
+                        Session["ConnectedUser"] = u;
+                        return RedirectToAction("EditProfile", "Account");
+                    }
+                }
+                ViewBag.LoginFail = "Login/Mot de passe manquant ou invalide";
+                return View();
+            }
+            else {
+                ViewBag.LoginFail = "Login/Mot de passe manquant ou invalide";
+                return View();
+            }
+        }
+
         public ActionResult SignUp()
         {
 
