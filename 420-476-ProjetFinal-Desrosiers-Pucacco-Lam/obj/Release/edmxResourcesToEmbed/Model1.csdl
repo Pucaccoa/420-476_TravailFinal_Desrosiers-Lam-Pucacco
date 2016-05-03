@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BDProjetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="permissionLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="categoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Requests" Relationship="Self.FK_Category" FromRole="Categories" ToRole="Request" />
+    <NavigationProperty Name="Offers" Relationship="Self.FK_CategoryId" FromRole="Categories" ToRole="Offers" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="targetId" Type="Int32" Nullable="false" />
+    <Property Name="message1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="sourceId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_sourceId" FromRole="Message" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_targetId" FromRole="Message" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Notification">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="requestId" Type="Int32" />
+    <Property Name="notifResult" Type="Boolean" />
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Request" Relationship="Self.FK_RequestID" FromRole="Notifications" ToRole="Request" />
+  </EntityType>
+  <EntityType Name="Offer">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="text" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="creatorID" Type="Int32" />
+    <Property Name="matchedUserId" Type="Int32" />
+    <Property Name="categoryId" Type="Int32" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_CategoryId" FromRole="Offers" ToRole="Categories" />
+    <NavigationProperty Name="User" Relationship="Self.FK_CreatorId" FromRole="Offers" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_Matched" FromRole="Offers" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="text" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dateCreated" Type="DateTime" Precision="0" />
+    <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="creatorId" Type="Int32" />
+    <Property Name="matchedUserID" Type="Int32" />
+    <Property Name="categoryId" Type="Int32" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Category" FromRole="Request" ToRole="Categories" />
+    <NavigationProperty Name="Notification" Relationship="Self.FK_RequestID" FromRole="Request" ToRole="Notifications" />
+    <NavigationProperty Name="User" Relationship="Self.FK_creator" FromRole="Request" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_matchedUser" FromRole="Request" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Messages" Relationship="Self.FK_sourceId" FromRole="Users" ToRole="Message" />
+    <NavigationProperty Name="Messages1" Relationship="Self.FK_targetId" FromRole="Users" ToRole="Message" />
+    <NavigationProperty Name="Offers" Relationship="Self.FK_CreatorId" FromRole="Users" ToRole="Offers" />
+    <NavigationProperty Name="Offers1" Relationship="Self.FK_Matched" FromRole="Users" ToRole="Offers" />
+    <NavigationProperty Name="Requests" Relationship="Self.FK_creator" FromRole="Users" ToRole="Request" />
+    <NavigationProperty Name="Requests1" Relationship="Self.FK_matchedUser" FromRole="Users" ToRole="Request" />
+  </EntityType>
+  <Association Name="FK_Category">
+    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="categoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CategoryId">
+    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Offers" Type="Self.Offer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Offers">
+        <PropertyRef Name="categoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sourceId">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="sourceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_targetId">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="sourceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestID">
+    <End Role="Request" Type="Self.Request" Multiplicity="1" />
+    <End Role="Notifications" Type="Self.Notification" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Request">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Notifications">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CreatorId">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Offers" Type="Self.Offer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Offers">
+        <PropertyRef Name="creatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Matched">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Offers" Type="Self.Offer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Offers">
+        <PropertyRef Name="matchedUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_creator">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="creatorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_matchedUser">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="matchedUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BDProjetEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Messages" EntityType="Self.Message" />
+    <EntitySet Name="Notifications" EntityType="Self.Notification" />
+    <EntitySet Name="Offers" EntityType="Self.Offer" />
+    <EntitySet Name="Requests" EntityType="Self.Request" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Category" Association="Self.FK_Category">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CategoryId" Association="Self.FK_CategoryId">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Offers" EntitySet="Offers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sourceId" Association="Self.FK_sourceId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_targetId" Association="Self.FK_targetId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestID" Association="Self.FK_RequestID">
+      <End Role="Request" EntitySet="Requests" />
+      <End Role="Notifications" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CreatorId" Association="Self.FK_CreatorId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Offers" EntitySet="Offers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Matched" Association="Self.FK_Matched">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Offers" EntitySet="Offers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_creator" Association="Self.FK_creator">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_matchedUser" Association="Self.FK_matchedUser">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

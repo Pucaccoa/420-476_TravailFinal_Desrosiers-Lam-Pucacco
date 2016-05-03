@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d418020a9009481d9578011d7d9ac9e2" Name="Diagram1">
+        <EntityTypeShape EntityType="BDProjetModel.Admin" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProjetModel.Category" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProjetModel.Message" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProjetModel.Notification" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProjetModel.Offer" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProjetModel.Request" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProjetModel.User" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="BDProjetModel.FK_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="BDProjetModel.FK_CategoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="BDProjetModel.FK_sourceId" ManuallyRouted="false" />
+        <AssociationConnector Association="BDProjetModel.FK_targetId" ManuallyRouted="false" />
+        <AssociationConnector Association="BDProjetModel.FK_RequestID" ManuallyRouted="false" />
+        <AssociationConnector Association="BDProjetModel.FK_CreatorId" ManuallyRouted="false" />
+        <AssociationConnector Association="BDProjetModel.FK_Matched" ManuallyRouted="false" />
+        <AssociationConnector Association="BDProjetModel.FK_creator" ManuallyRouted="false" />
+        <AssociationConnector Association="BDProjetModel.FK_matchedUser" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

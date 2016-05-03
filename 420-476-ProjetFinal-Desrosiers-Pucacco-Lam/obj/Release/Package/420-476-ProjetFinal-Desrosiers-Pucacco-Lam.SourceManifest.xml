@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <IisApp path="C:\Users\Alex-Pc\Documents\420-476_TravailFinal_Desrosiers-Lam-Pucacco2\420-476-ProjetFinal-Desrosiers-Pucacco-Lam\obj\Release\Package\PackageTmp" />
+  <setAcl path="C:\Users\Alex-Pc\Documents\420-476_TravailFinal_Desrosiers-Lam-Pucacco2\420-476-ProjetFinal-Desrosiers-Pucacco-Lam\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="C:\Users\Alex-Pc\Documents\420-476_TravailFinal_Desrosiers-Lam-Pucacco2\420-476-ProjetFinal-Desrosiers-Pucacco-Lam\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+</sitemanifest>
