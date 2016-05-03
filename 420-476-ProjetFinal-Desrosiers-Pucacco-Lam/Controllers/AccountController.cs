@@ -14,5 +14,11 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
 
             return View();
         }
+
+        public ActionResult SignUp()
+        {
+
+            return View();
+        }
     }
 }
