@@ -9,9 +9,9 @@
             <h2>Se connecter à votre compte</h2>
         </div>
         <div id="fillUpDiv">
-            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
-            {
-                <table>
+            <table>
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                {
                     <tr>
                         <td style="float:left">
                             <label>Identifiant</label>
@@ -34,8 +34,13 @@
                             <input type="submit" value="Se connecter" />
                         </td>
                     </tr>
-                </table>
-            }
+                }
+                <tr>
+                    <td>
+                        @Html.ActionLink("Return to home", "Welcome", "Home")
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
