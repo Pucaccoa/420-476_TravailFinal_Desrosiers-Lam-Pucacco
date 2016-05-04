@@ -34,18 +34,17 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
                         return RedirectToAction("EditProfile", "Account");
                     }
                 }
-                ViewBag.LoginFail = "Login/Mot de passe manquant ou invalide";
+                ViewBag.LoginFail = "";
                 return View();
             }
             else {
-                ViewBag.LoginFail = "Login/Mot de passe manquant ou invalide";
+                ViewBag.LoginFail = "";
                 return View();
             }
         }
 
         public ActionResult SignUp()
         {
-
             return View();
         }
 
@@ -65,7 +64,6 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditProfile([Bind(Include = "id,firstName,lastName,login,password,image,description")] User user)
         {
-
             if (Session["ConnectedUser"] != null)
             {
                 if (ModelState.IsValid)
@@ -79,6 +77,12 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
             else {
                 return RedirectToAction("Home", "Index");
             }
+        }
+
+        public ActionResult LogOut()
+        {
+            Session.Abandon();
+            return RedirectToAction("Home", "Index");
         }
     }
 }
