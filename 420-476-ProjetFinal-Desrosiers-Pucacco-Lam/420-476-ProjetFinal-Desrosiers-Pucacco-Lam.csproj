@@ -269,11 +269,15 @@
     <Content Include="Views\Offers\Edit.cshtml" />
     <Content Include="Views\Offers\Index.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Requests\Create.cshtml" />
     <Content Include="Views\Requests\Delete.cshtml" />
     <Content Include="Views\Requests\Details.cshtml" />
     <Content Include="Views\Requests\Edit.cshtml" />
     <Content Include="Views\Requests\Index.cshtml" />
+=======
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+>>>>>>> a456d77028a2a4c77d4e801a9f4377aaff803cf1
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
