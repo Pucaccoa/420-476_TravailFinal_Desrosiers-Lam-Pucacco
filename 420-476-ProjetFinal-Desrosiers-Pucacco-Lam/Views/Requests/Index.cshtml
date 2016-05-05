@@ -1,0 +1,47 @@
+﻿@model IEnumerable<_420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Request>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Request</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@foreach (var item in Model)
+{
+    <a href="@Url.Action("Details","Requests",new { id = item.id})" style="text-decoration:none;color:black">
+
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>
+                        @Html.DisplayFor(modelItem => item.title)
+                    </h1>
+                </div>
+            </div>
+            <div class="row">
+                <div style="display:table !important;width:100%;">
+                    <div class="col-md-5" style="display:table-cell !important">
+                        <img src="http://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701" style="border:solid 3px black;width:60%;height:50%">
+                    </div>
+                    <div class="col-md-7 " style="display:table-cell !important;border:3px solid black;
+    padding-bottom: 15%;">
+                        <p style="">
+                            @Html.DisplayFor(modelItem => item.text)
+                        </p>
+                    </div>
+                </div>
+            </div>
+            @Html.ActionLink("Edit", "Edit", new { id = item.id })
+            
+        </div>
+    </a>
+}
+        @*  
+             |
+             @Html.ActionLink("Details", "Details", new { id=item.id }) |
+             @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        *@ 
