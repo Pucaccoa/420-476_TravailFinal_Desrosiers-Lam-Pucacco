@@ -17,7 +17,7 @@
                             <label>Identifiant</label>
                         </td>
                         <td>
-                            <input type="text" name="login" id="login" />
+                            <input type="text" name="login" id="login" style="float:right"/>
                         </td>
                     </tr>
                     <tr>
@@ -25,7 +25,7 @@
                             <label>Mot de passe</label>
                         </td>
                         <td>
-                            <input type="password" name="password" id="password" />
+                            <input type="password" name="password" id="password" style="float:right"/>
                         </td>
                     </tr>
                     <tr>
@@ -35,17 +35,15 @@
                         </td>
                     </tr>
                 }
-                <tr>
-                    <td>
-                        @Html.ActionLink("Vous n'avez pas de compte? Cliquer ici!", "SignUp", "Account");
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.ActionLink("Return to home", "Welcome", "Home")
-                    </td>
-                </tr>
+                <tr>   
             </table>
+            @if (ViewBag.LoginFail != null)
+            {
+                <label>Login/Mot de passe manquant/invalid</label> <br />
+            }
+             <br />
+            @Html.ActionLink("Vous n'avez pas de compte? Cliquer ici!", "SignUp", "Account") <br />
+            @Html.ActionLink("Retourne à l'accueil", "Welcome", "Home")
         </div>
     </div>
 </div>

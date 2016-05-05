@@ -4,71 +4,52 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h1>Details</h1>
+<table>
+    <tr>
+        <td>
+            <div style="width:40%;height:100%;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>@Model.title</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.Label("Name")
+                    </div>
+                    <div class="col-md-3">
+                        @Model.User.firstName @Model.User.lastName
+                    </div>
 
-<div>
-    <h4>Offer</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.text)
-        </dt>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.Label("Category")
+                    </div>
+                    <div class="col-md-3">
+                        @Model.Category.categoryName
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.text)
-        </dd>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        @Html.Label("Name")
+                    </div>
+                    <div class="col-md-3">
+                        @Model.User.firstName @Model.User.lastName
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
+            </div>
+        </td>
+        <td>
+            <img />
+        </td>
+    </tr>
+</table>
 
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dateCreated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dateCreated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.image)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.image)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.categoryName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.categoryName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.firstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.firstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User1.firstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User1.firstName)
-        </dd>
-
-    </dl>
-</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Retour à la liste", "Index")
 </p>
