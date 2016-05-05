@@ -17,7 +17,7 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         // GET: Offers
         public ActionResult Index()
         {
-            var offers = db.Offers.Include(o => o.Category).Include(o => o.User).Include(o => o.User1);
+            var offers = db.Offers.Where(o=> o.matchedUserId ==null).Include(o => o.Category).Include(o => o.User).Include(o => o.User1);
             return View(offers.ToList());
         }
 
