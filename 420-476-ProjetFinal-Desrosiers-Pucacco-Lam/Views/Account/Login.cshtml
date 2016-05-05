@@ -4,7 +4,7 @@
 }
 
 <div id="mainDiv" style="width: 100%; text-align: center">
-    <div id="contentDiv" style="display: inline-block;">
+    <div id="contentDiv" style="display: inline-block">
         <div id="headerDiv">
             <h2>Se connecter à votre compte</h2>
         </div>
@@ -39,7 +39,7 @@
             </table>
             @if (ViewBag.LoginFail != null)
             {
-                <label>Login/Mot de passe manquant/invalid</label> <br />
+                <label>@Html.Raw(ViewBag.LoginFail)</label> <br />
             }
              <br />
             @Html.ActionLink("Vous n'avez pas de compte? Cliquer ici!", "SignUp", "Account") <br />

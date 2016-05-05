@@ -24,27 +24,63 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         [HttpPost]
         public ActionResult Login(string login, string password)
         {
-            if (login != null && password != null)
+            if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password))
             {
                 foreach (User u in db.Users)
                 {
                     if (u.login == login && u.password == password)
                     {
                         Session["ConnectedUser"] = u;
-                        return RedirectToAction("EditProfile", "Account");
+                        return RedirectToAction("Index", "Offers");
                     }
                 }
-                ViewBag.LoginFail = "";
+                ViewBag.LoginFail = "Login/Mot de passe invalid";
                 return View();
             }
             else {
-                ViewBag.LoginFail = "";
+                ViewBag.LoginFail = "Login/Mot de passe invalid";
                 return View();
             }
         }
 
         public ActionResult SignUp()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SignUp([Bind(Include = "firstName,lastName,login,password,description")] User user)
+        {
+            ViewBag.Login = user.login;
+            ViewBag.FirstName = user.firstName;
+            ViewBag.LastName = user.lastName;
+            ViewBag.Description = user.description;
+
+            if (!string.IsNullOrEmpty(user.login) && !string.IsNullOrEmpty(user.password) && !string.IsNullOrEmpty(user.firstName) && !string.IsNullOrEmpty(user.lastName) && !string.IsNullOrEmpty(user.description))
+            {
+                //ViewBag.Login = user.login;
+                //ViewBag.FirstName = user.firstName;
+                //ViewBag.LastName = user.lastName;
+                //ViewBag.Description = user.description;
+
+                if (checkAvailability(user.login))
+                {
+                    if (ModelState.IsValid)
+                    {
+                        user.id = getAutoUserId();
+                        user.image = null;
+                        db.Users.Add(user);
+                        db.SaveChanges();
+                        return RedirectToAction("Login","Account");
+                    }
+
+                }
+                else {
+                    ViewBag.ErrorMessage = "Identifiant choisi est non disponible";
+                }
+            } else {
+                ViewBag.ErrorMessage = "Un des champs n'est pas rempli, veuillez le remplir";
+            }
             return View();
         }
 
@@ -56,7 +92,7 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
                 return View(user);
             }
             else {
-                return RedirectToAction("Home", "Index");
+                return RedirectToAction("Index", "Offers");
             }
         }
 
@@ -70,19 +106,37 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
                 {
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Offers");
                 }
                 return View(user);
             }
             else {
-                return RedirectToAction("Home", "Index");
+                return View(user);
             }
         }
 
         public ActionResult LogOut()
         {
             Session.Abandon();
-            return RedirectToAction("Home", "Index");
+            return RedirectToAction("Login", "Account");
+        }
+
+        public int getAutoUserId()
+        {
+            int id = db.Users.Count();
+            id++;
+            return id;
+        }
+
+        public bool checkAvailability(string login) {
+            foreach (User u in db.Users)
+            {
+                if (u.login == login)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
