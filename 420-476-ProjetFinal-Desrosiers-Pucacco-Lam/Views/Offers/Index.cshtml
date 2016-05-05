@@ -11,84 +11,30 @@
 </p>
 @foreach (var item in Model)
 {
-<div>
-<div class="row">
-    <div class="col-md-12">
-        <h1>
-            @Html.DisplayFor(modelItem => item.title)
-        </h1>
-    </div>
-</div>
-    <div class="row">
-        <div style="display:table !important;width:100%;">
-            <div class="col-md-5" style="display:table-cell !important">
-                <img src="http://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701" style="border:solid 3px black;width:60%;height:50%">
+ <a href="@Url.Action("Details","Offers",new { id = item.id})" style="text-decoration:none;color:black">
+
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>
+                        @Html.DisplayFor(modelItem => item.title)
+                    </h1>
+                </div>
             </div>
-            <div class="col-md-7 " style="display:table-cell !important;border:3px solid black;
+            <div class="row">
+                <div style="display:table !important;width:100%;">
+                    <div class="col-md-5" style="display:table-cell !important">
+                        <img src="http://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701" style="border:solid 3px black;width:60%;height:50%">
+                    </div>
+                    <div class="col-md-7 " style="display:table-cell !important;border:3px solid black;
     padding-bottom: 15%;">
-                <p style="">
-                    @Html.DisplayFor(modelItem => item.text)
-                </p>
+                        <p style="">
+                            @Html.DisplayFor(modelItem => item.text)
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    </div>
-}
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.text)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dateCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.categoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.firstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User1.firstName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.text)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dateCreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.image)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.categoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.firstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User1.firstName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+</a>
 }
 
-</table>
