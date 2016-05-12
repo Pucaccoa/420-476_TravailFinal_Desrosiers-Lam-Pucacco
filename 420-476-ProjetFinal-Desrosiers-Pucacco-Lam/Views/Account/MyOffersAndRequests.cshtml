@@ -1,0 +1,71 @@
+﻿
+<h2>Mes offres et requetes: </h2>
+
+<div name="Everything">
+    <div name="Offers">
+      <h3>Mes offres: </h3>
+        @foreach (var item in ViewBag.OffersList)
+        {
+            <a href="@Url.Action("Details","Offers",new { id = item.id})" style="text-decoration:none;color:black">
+
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>
+                              @item.title
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="display:table !important;width:100%;">
+                            <div class="col-md-5" style="display:table-cell !important">
+                                <img src="http://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701" style="border:solid 3px black;width:60%;height:50%">
+                            </div>
+                            <div class="col-md-7 " style="display:table-cell !important;border:3px solid black; padding-bottom: 15%;">
+                                    @item.text
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ActionLink("Edit", "Edit", "Requests", new { id = item.id })
+                </div>
+            </a>
+        }
+    </div>
+    <div name="Requests">
+        <h3>Mes requetes: </h3>
+        @foreach (var item in ViewBag.RequestsList)
+        {
+            <a href="@Url.Action("Details","Requests",new { id = item.id})" style="text-decoration:none;color:black">
+
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>
+                                @item.title
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="display:table !important;width:100%;">
+                            <div class="col-md-5" style="display:table-cell !important">
+                                <img src="http://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701" style="border:solid 3px black;width:60%;height:50%">
+                            </div>
+                            <div class="col-md-7 " style="display:table-cell !important;border:3px solid black; padding-bottom: 15%;">
+                                <p style="">
+                                  @item.text
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ActionLink("Edit", "Edit", "Requests",new { id = item.id })
+
+                </div>
+            </a>
+        }
+
+
+
+
+
+    </div>
+</div>

@@ -1,13 +1,13 @@
 ﻿
-@if (Session["ConnectedUserID"] != null)
+@if (Session["ConnectedUser"] != null)
 {
     using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
-            <li style="color:lightgray">Bonjour @Html.Raw(Session["ConnectedUserName"])</li>
-            <li>@Html.ActionLink("Modifier son profil", "EditProfile", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+            <li>Bonjours!</li>
+            <li> @Html.ActionLink("Modifier son profil", "EditProfile", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
             <li>@Html.ActionLink("Se déconnecter", "LogOut", "Account", routeValues: null, htmlAttributes: new { id = "signoutLink" })</li>
            @* <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>*@
         </ul>

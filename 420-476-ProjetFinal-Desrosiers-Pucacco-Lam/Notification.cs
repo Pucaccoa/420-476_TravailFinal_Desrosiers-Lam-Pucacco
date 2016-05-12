@@ -12,20 +12,13 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam
     using System;
     using System.Collections.Generic;
     
-    public partial class Request
+    public partial class Notification
     {
         public int id { get; set; }
-        public string text { get; set; }
-        public string title { get; set; }
-        public Nullable<System.DateTime> dateCreated { get; set; }
-        public string image { get; set; }
-        public Nullable<int> creatorId { get; set; }
-        public Nullable<int> matchedUserID { get; set; }
-        public Nullable<int> categoryId { get; set; }
+        public Nullable<int> requestId { get; set; }
+        public Nullable<bool> notifResult { get; set; }
+        public string type { get; set; }
     
-        public virtual Category Category { get; set; }
-        public virtual Notification Notification { get; set; }
-        public virtual User User { get; set; }
-        public virtual User User1 { get; set; }
+        public virtual Request Request { get; set; }
     }
 }

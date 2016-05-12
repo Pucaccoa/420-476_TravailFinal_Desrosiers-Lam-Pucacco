@@ -5,65 +5,71 @@
 }
 
 <h1>Details</h1>
-<table>
-    <tr>
-        <td>
-            <div style="width:40%;height:100%;">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>@Model.title</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        @Html.Label("Name")
-                    </div>
-                    <div class="col-md-3">
-                        @Model.User.firstName @Model.User.lastName
-                    </div>
+<div class="row">
+    <div class="col-md-12">
+        <table style="width:100%">
+            <tr>
+                <td style="width:35%;">
+                    <div style="width:40%;height:100%;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>@Model.title</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.Label("Nom du créateur: ")
+                            </div>
+                            <div class="col-md-6">
+                                @Model.User.firstName @Model.User.lastName
+                            </div>
 
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        @Html.Label("Category")
-                    </div>
-                    <div class="col-md-3">
-                        @Model.Category.categoryName
-                    </div>
+                        </div>
 
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        @Html.Label("Name")
-                    </div>
-                    <div class="col-md-3">
-                        @Model.User.firstName @Model.User.lastName
-                    </div>
-                </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.Label("Description:  ")
+                            </div>
+                            <div class="col-md-6">
+                                @Model.text
+                            </div>
+                        </div>
 
-            </div>
-        </td>
-        <td>
-            <img />
-        </td>
-    </tr>
-</table>
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.Label("Categorie: ")
+                            </div>
+                            <div class="col-md-6">
+                                @Model.Category.categoryName
+                            </div>
+                    
+                        </div>
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.Label("Date de création :")
+                            </div>
+                            <div class="col-md-6">
+                                @Model.dateCreated.Year / 
+                                @Model.dateCreated.Month /
+                                @Model.dateCreated.Day
+
+                            </div>
+                        </div>
+
+                    
+
+
+
+                    </div>
+                </td>
+                <td style="width:50%;text-align:left;">
+                    <img style="width:60%;height:50%;" src="http://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701" alt="img" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 <p>
-    @if (Session["ConnectedUserID"] != null)
-    {
-        using (Html.BeginForm("Message", "Messaging", FormMethod.Post))
-        {
-            <input type="hidden" name="creatorId" value="@(ViewBag.CreatorId)" />
-            <input type="hidden" name="title" value="@(ViewBag.Title)" />
-            <input type="submit" value="Contacter offreur" onclick="@("window.location.href='" + @Url.Action("Message", "Messaging") + "'");" />
-        }
-    }
-    else {
-        <button disabled>Contacter offreur</button> <br />
-        @Html.ActionLink("Vous devez être connecté", "Login", "Account")
-    }
-</p>
-<p>
-    <input type="button" value="Retour " onclick="@("window.location.href='" + @Url.Action("Index", "Offers") + "'");" />
+    @Html.ActionLink("Retour à la liste", "Index")
 </p>

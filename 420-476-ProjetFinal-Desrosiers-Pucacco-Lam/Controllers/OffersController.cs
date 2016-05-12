@@ -69,14 +69,25 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,text,title,dateCreated,image,creatorID,matchedUserId,categoryId")] Offer offer)
+        public ActionResult Create([Bind(Include = "text,title,image,categoryId")] Offer offer)
         {
+           
+
             if (ModelState.IsValid)
             {
+                var creatorid = (int)Session["ConnectedUserID"];
+                var offerid = db.Offers.Count() + 1;
+                offer.id = offerid;
+                offer.dateCreated = DateTime.Now;
+                offer.creatorID = creatorid;
+                offer.matchedUserId = null;
                 db.Offers.Add(offer);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Account", "MyOffersAndRequests");
             }
+
+
+            
 
             ViewBag.categoryId = new SelectList(db.Categories, "id", "categoryName", offer.categoryId);
             ViewBag.creatorID = new SelectList(db.Users, "id", "firstName", offer.creatorID);
@@ -107,13 +118,13 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,text,title,dateCreated,image,creatorID,matchedUserId,categoryId")] Offer offer)
+        public ActionResult Edit([Bind(Include = "text,title,image,categoryId")] Offer offer)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(offer).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Account", "MyOffersAndRequests");
             }
             ViewBag.categoryId = new SelectList(db.Categories, "id", "categoryName", offer.categoryId);
             ViewBag.creatorID = new SelectList(db.Users, "id", "firstName", offer.creatorID);

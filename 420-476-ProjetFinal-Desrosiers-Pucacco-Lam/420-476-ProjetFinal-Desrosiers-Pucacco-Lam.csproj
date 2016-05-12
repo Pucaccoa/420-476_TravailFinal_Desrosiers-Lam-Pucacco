@@ -166,7 +166,6 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MessagingController.cs" />
     <Compile Include="Controllers\OffersController.cs" />
     <Compile Include="Controllers\RequestsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -189,6 +188,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Notification.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Offer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -273,11 +275,12 @@
     <Content Include="Views\Requests\Details.cshtml" />
     <Content Include="Views\Requests\Edit.cshtml" />
     <Content Include="Views\Requests\Index.cshtml" />
-    <Content Include="Views\Messaging\Message.cshtml" />
+    <Content Include="Views\Account\MyOffersAndRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Historique\" />
     <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>

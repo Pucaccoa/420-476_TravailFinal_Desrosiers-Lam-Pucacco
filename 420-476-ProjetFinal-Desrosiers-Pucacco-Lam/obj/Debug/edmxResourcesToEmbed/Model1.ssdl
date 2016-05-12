@@ -4,7 +4,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
     <Property Name="firstName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="lastName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
@@ -15,7 +15,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
     <Property Name="categoryName" Type="varchar" MaxLength="50" />
     <Property Name="description" Type="varchar" MaxLength="250" />
   </EntityType>
@@ -23,18 +23,26 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="targetUserId" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="targetId" Type="int" Nullable="false" />
     <Property Name="message" Type="varchar(max)" />
-    <Property Name="sourceUserId" Type="int" Nullable="false" />
-    <Property Name="title" Type="varchar" MaxLength="50" />
+    <Property Name="sourceId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notifications">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="requestId" Type="int" />
+    <Property Name="notifResult" Type="bit" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Offers">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="text" Type="varchar" MaxLength="1000" />
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="text" Type="varchar" MaxLength="50" />
     <Property Name="title" Type="varchar" MaxLength="50" />
     <Property Name="dateCreated" Type="date" Nullable="false" />
     <Property Name="image" Type="varchar" MaxLength="50" />
@@ -46,7 +54,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
     <Property Name="text" Type="varchar" MaxLength="1000" />
     <Property Name="title" Type="varchar" MaxLength="50" />
     <Property Name="dateCreated" Type="date" />
@@ -59,14 +67,13 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id" Type="int" Nullable="false" />
     <Property Name="firstName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="lastName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="image" Type="varchar" MaxLength="50" />
     <Property Name="description" Type="varchar(max)" />
-    <Property Name="email" Type="varchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK_Category">
     <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
@@ -124,7 +131,7 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="Offers">
-        <PropertyRef Name="creatorID" />
+        <PropertyRef Name="matchedUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -140,19 +147,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_sourceUserId">
-    <End Role="Users" Type="Self.Users" Multiplicity="1" />
-    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+  <Association Name="FK_RequestID">
+    <End Role="Request" Type="Self.Request" Multiplicity="1" />
+    <End Role="Notifications" Type="Self.Notifications" Multiplicity="0..1" />
     <ReferentialConstraint>
-      <Principal Role="Users">
+      <Principal Role="Request">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="Message">
-        <PropertyRef Name="sourceUserId" />
+      <Dependent Role="Notifications">
+        <PropertyRef Name="id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_targetUserId">
+  <Association Name="FK_sourceId">
     <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="Message" Type="Self.Message" Multiplicity="*" />
     <ReferentialConstraint>
@@ -160,7 +167,19 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="Message">
-        <PropertyRef Name="sourceUserId" />
+        <PropertyRef Name="sourceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_targetId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="sourceId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -168,6 +187,7 @@
     <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Offers" EntityType="Self.Offers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -195,11 +215,15 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Request" EntitySet="Request" />
     </AssociationSet>
-    <AssociationSet Name="FK_sourceUserId" Association="Self.FK_sourceUserId">
+    <AssociationSet Name="FK_RequestID" Association="Self.FK_RequestID">
+      <End Role="Request" EntitySet="Request" />
+      <End Role="Notifications" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sourceId" Association="Self.FK_sourceId">
       <End Role="Users" EntitySet="Users" />
       <End Role="Message" EntitySet="Message" />
     </AssociationSet>
-    <AssociationSet Name="FK_targetUserId" Association="Self.FK_targetUserId">
+    <AssociationSet Name="FK_targetId" Association="Self.FK_targetId">
       <End Role="Users" EntitySet="Users" />
       <End Role="Message" EntitySet="Message" />
     </AssociationSet>

@@ -18,8 +18,9 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         public ActionResult Index()
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "id", "categoryName");
-            var requests = db.Requests.Include(r => r.Category).Include(r => r.User).Include(r => r.User1);
+            var requests = db.Requests.Include(r => r.Category).Include(r => r.Notification).Include(r => r.User).Include(r => r.User1);
             return View(requests.ToList());
+          
         }
 
         [HttpPost]
@@ -53,8 +54,6 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CreatorId = request.User.id;
-            ViewBag.Title = request.title;
             return View(request);
         }
 
@@ -62,6 +61,7 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         public ActionResult Create()
         {
             ViewBag.categoryId = new SelectList(db.Categories, "id", "categoryName");
+            ViewBag.id = new SelectList(db.Notifications, "id", "type");
             ViewBag.creatorId = new SelectList(db.Users, "id", "firstName");
             ViewBag.matchedUserID = new SelectList(db.Users, "id", "firstName");
             return View();
@@ -72,18 +72,22 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,text,title,dateCreated,image,creatorId,matchedUserID,categoryId")] Request request)
+        public ActionResult Create([Bind(Include = "text,title,image,categoryId")] Request request)
         {
             if (ModelState.IsValid)
             {
+                var creatorid = (int)Session["ConnectedUserID"];
+                var requestid = db.Requests.Count() + 1;
+                request.id = requestid;
+                request.dateCreated = DateTime.Now;
+                request.creatorId = creatorid;
+                request.matchedUserID = null;
                 db.Requests.Add(request);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Account", "MyOffersAndRequests");
             }
 
             ViewBag.categoryId = new SelectList(db.Categories, "id", "categoryName", request.categoryId);
-            ViewBag.creatorId = new SelectList(db.Users, "id", "firstName", request.creatorId);
-            ViewBag.matchedUserID = new SelectList(db.Users, "id", "firstName", request.matchedUserID);
             return View(request);
         }
 
@@ -100,6 +104,7 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
                 return HttpNotFound();
             }
             ViewBag.categoryId = new SelectList(db.Categories, "id", "categoryName", request.categoryId);
+            ViewBag.id = new SelectList(db.Notifications, "id", "type", request.id);
             ViewBag.creatorId = new SelectList(db.Users, "id", "firstName", request.creatorId);
             ViewBag.matchedUserID = new SelectList(db.Users, "id", "firstName", request.matchedUserID);
             return View(request);
@@ -110,17 +115,18 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,text,title,dateCreated,image,creatorId,matchedUserID,categoryId")] Request request)
+        public ActionResult Edit([Bind(Include = "text,title,image,categoryId")] Request request)
         {
             if (ModelState.IsValid)
             {
+                
                 db.Entry(request).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Account", "MyOffersAndRequests");
+
             }
             ViewBag.categoryId = new SelectList(db.Categories, "id", "categoryName", request.categoryId);
-            ViewBag.creatorId = new SelectList(db.Users, "id", "firstName", request.creatorId);
-            ViewBag.matchedUserID = new SelectList(db.Users, "id", "firstName", request.matchedUserID);
             return View(request);
         }
 
