@@ -7,41 +7,61 @@
 
 <h2>Request</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm("Index", "Requests", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>Filtrer votre recherche</td>
+        </tr>
+        <tr>
+            <td>Recherche par titre</td>
+            <td>
+                <input type="text" name="offerTitle" id="offerTitle" />
+            </td>
+            <td>Categories</td>
+            <td>
+                @Html.DropDownList("categoryId", (SelectList)ViewBag.CategoryID, htmlAttributes: new { @class = "form-control" })
+            </td>
+            <td><input type="submit" value="Search" /></td>
+            <td>@Html.ActionLink("Lister toutes les demandes", "Index", "Requests")</td>
+        </tr>
+    </table>
+}
+
 @foreach (var item in Model)
 {
-    <a href="@Url.Action("Details","Requests",new { id = item.id})" style="text-decoration:none;color:black">
 
-        <div>
-            <div class="row">
-                <div class="col-md-12">
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="@Url.Action("Details","Requests",new { id = item.id})" style="text-decoration:none;color:black">
                     <h1>
                         @Html.DisplayFor(modelItem => item.title)
                     </h1>
-                </div>
+                </a>
             </div>
-            <div class="row">
-                <div style="display:table !important;width:100%;">
-                    <div class="col-md-5" style="display:table-cell !important">
+        </div>
+        <div class="row">
+            <div style="display:table !important;width:100%;">
+                <div class="col-md-5" style="display:table-cell !important">
+                    <a href="@Url.Action("Details","Requests",new { id = item.id})" style="text-decoration:none;color:black">
                         <img src="http://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701" style="border:solid 3px black;width:60%;height:50%">
-                    </div>
-                    <div class="col-md-7 " style="display:table-cell !important;border:3px solid black;
-    padding-bottom: 15%;">
+                    </a>
+                </div>
+                <a href="@Url.Action("Details","Requests",new { id = item.id})" style="text-decoration:none;color:black">
+                    <div class="col-md-7 " style="display:table-cell !important;border:3px solid black;padding-bottom: 15%;">
                         <p style="">
                             @Html.DisplayFor(modelItem => item.text)
                         </p>
                     </div>
-                </div>
+                </a>
             </div>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id })
-            
         </div>
-    </a>
+
+    </div>
 }
-        @*  
-             |
-             @Html.ActionLink("Details", "Details", new { id=item.id }) |
-             @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        *@ 
+@*
+    |
+    @Html.ActionLink("Details", "Details", new { id=item.id }) |
+    @Html.ActionLink("Delete", "Delete", new { id=item.id })
+*@

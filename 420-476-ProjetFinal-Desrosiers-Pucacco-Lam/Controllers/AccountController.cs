@@ -24,22 +24,29 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         [HttpPost]
         public ActionResult Login(string login, string password)
         {
-            if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password))
+            if (Session["ConnectedUserID"] == null)
             {
-                foreach (User u in db.Users)
+                if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password))
                 {
-                    if (u.login == login && u.password == password)
+                    foreach (User u in db.Users)
                     {
-                        Session["ConnectedUser"] = u;
-                        return RedirectToAction("Index", "Offers");
+                        if (u.login == login && u.password == password)
+                        {
+                            Session["ConnectedUserID"] = u.id;
+                            Session["ConnectedUserName"] = u.firstName + " " + u.lastName;
+                            return RedirectToAction("Index", "Offers");
+                        }
                     }
+                    ViewBag.LoginFail = "Login/Mot de passe invalid";
+                    return View();
                 }
-                ViewBag.LoginFail = "Login/Mot de passe invalid";
-                return View();
+                else {
+                    ViewBag.LoginFail = "Login/Mot de passe invalid";
+                    return View();
+                }
             }
             else {
-                ViewBag.LoginFail = "Login/Mot de passe invalid";
-                return View();
+                return RedirectToAction("Index", "Offers");
             }
         }
 
@@ -86,10 +93,11 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
 
         public ActionResult EditProfile()
         {
-            if (Session["ConnectedUser"] != null)
+            if (Session["ConnectedUserID"] != null)
             {
-                User user = (User)Session["ConnectedUser"];
-                return View(user);
+                int userID = (int)Session["ConnectedUserID"];
+                var user = db.Users.Where(u => u.id == userID);
+                return View(user.ToList()[0]);
             }
             else {
                 return RedirectToAction("Index", "Offers");
@@ -100,12 +108,13 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditProfile([Bind(Include = "id,firstName,lastName,login,password,image,description")] User user)
         {
-            if (Session["ConnectedUser"] != null)
+            if (Session["ConnectedUserID"] != null)
             {
                 if (ModelState.IsValid)
                 {
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
+                    Session["ConnectedUserName"] = user.firstName + " " + user.lastName;
                     return RedirectToAction("Index","Offers");
                 }
                 return View(user);

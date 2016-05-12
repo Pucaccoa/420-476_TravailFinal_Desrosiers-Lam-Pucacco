@@ -5,6 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mon application ASP.NET</title>
+    <style>
+        a:hover {
+            background-color:lightgray;
+        }
+        a:active{
+            background-color:lightcoral;
+        }
+    </style>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -23,6 +31,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Accueil", "Index", "Offers")</li>
                     <li>@Html.ActionLink("Offres","Index","Offers")</li>
+                    <li>@Html.ActionLink("Demandes","Index","Requests")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

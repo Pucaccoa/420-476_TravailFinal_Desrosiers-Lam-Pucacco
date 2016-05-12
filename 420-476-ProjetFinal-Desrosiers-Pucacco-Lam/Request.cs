@@ -24,7 +24,6 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam
         public Nullable<int> categoryId { get; set; }
     
         public virtual Category Category { get; set; }
-        public virtual Notification Notification { get; set; }
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
     }

@@ -15,9 +15,10 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam
     public partial class Message
     {
         public int id { get; set; }
-        public int targetId { get; set; }
+        public int targetUserId { get; set; }
         public string message1 { get; set; }
-        public int sourceId { get; set; }
+        public int sourceUserId { get; set; }
+        public string title { get; set; }
     
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }

@@ -4,7 +4,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -15,7 +15,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="categoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Requests" Relationship="Self.FK_Category" FromRole="Categories" ToRole="Request" />
@@ -25,29 +25,20 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="targetId" Type="Int32" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="targetUserId" Type="Int32" Nullable="false" />
     <Property Name="message1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="sourceId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="User" Relationship="Self.FK_sourceId" FromRole="Message" ToRole="Users" />
-    <NavigationProperty Name="User1" Relationship="Self.FK_targetId" FromRole="Message" ToRole="Users" />
-  </EntityType>
-  <EntityType Name="Notification">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="requestId" Type="Int32" />
-    <Property Name="notifResult" Type="Boolean" />
-    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Request" Relationship="Self.FK_RequestID" FromRole="Notifications" ToRole="Request" />
+    <Property Name="sourceUserId" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_sourceUserId" FromRole="Message" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_targetUserId" FromRole="Message" ToRole="Users" />
   </EntityType>
   <EntityType Name="Offer">
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
-    <Property Name="text" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="text" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
     <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -62,7 +53,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="text" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
     <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="dateCreated" Type="DateTime" Precision="0" />
@@ -71,7 +62,6 @@
     <Property Name="matchedUserID" Type="Int32" />
     <Property Name="categoryId" Type="Int32" />
     <NavigationProperty Name="Category" Relationship="Self.FK_Category" FromRole="Request" ToRole="Categories" />
-    <NavigationProperty Name="Notification" Relationship="Self.FK_RequestID" FromRole="Request" ToRole="Notifications" />
     <NavigationProperty Name="User" Relationship="Self.FK_creator" FromRole="Request" ToRole="Users" />
     <NavigationProperty Name="User1" Relationship="Self.FK_matchedUser" FromRole="Request" ToRole="Users" />
   </EntityType>
@@ -79,15 +69,16 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Messages" Relationship="Self.FK_sourceId" FromRole="Users" ToRole="Message" />
-    <NavigationProperty Name="Messages1" Relationship="Self.FK_targetId" FromRole="Users" ToRole="Message" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Messages" Relationship="Self.FK_sourceUserId" FromRole="Users" ToRole="Message" />
+    <NavigationProperty Name="Messages1" Relationship="Self.FK_targetUserId" FromRole="Users" ToRole="Message" />
     <NavigationProperty Name="Offers" Relationship="Self.FK_CreatorId" FromRole="Users" ToRole="Offers" />
     <NavigationProperty Name="Offers1" Relationship="Self.FK_Matched" FromRole="Users" ToRole="Offers" />
     <NavigationProperty Name="Requests" Relationship="Self.FK_creator" FromRole="Users" ToRole="Request" />
@@ -117,7 +108,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_sourceId">
+  <Association Name="FK_sourceUserId">
     <End Role="Users" Type="Self.User" Multiplicity="1" />
     <End Role="Message" Type="Self.Message" Multiplicity="*" />
     <ReferentialConstraint>
@@ -125,11 +116,11 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="Message">
-        <PropertyRef Name="sourceId" />
+        <PropertyRef Name="sourceUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_targetId">
+  <Association Name="FK_targetUserId">
     <End Role="Users" Type="Self.User" Multiplicity="1" />
     <End Role="Message" Type="Self.Message" Multiplicity="*" />
     <ReferentialConstraint>
@@ -137,19 +128,7 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="Message">
-        <PropertyRef Name="sourceId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_RequestID">
-    <End Role="Request" Type="Self.Request" Multiplicity="1" />
-    <End Role="Notifications" Type="Self.Notification" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Request">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Notifications">
-        <PropertyRef Name="id" />
+        <PropertyRef Name="sourceUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -173,7 +152,7 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="Offers">
-        <PropertyRef Name="matchedUserId" />
+        <PropertyRef Name="creatorID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -205,7 +184,6 @@
     <EntitySet Name="Admins" EntityType="Self.Admin" />
     <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="Messages" EntityType="Self.Message" />
-    <EntitySet Name="Notifications" EntityType="Self.Notification" />
     <EntitySet Name="Offers" EntityType="Self.Offer" />
     <EntitySet Name="Requests" EntityType="Self.Request" />
     <EntitySet Name="Users" EntityType="Self.User" />
@@ -217,17 +195,13 @@
       <End Role="Categories" EntitySet="Categories" />
       <End Role="Offers" EntitySet="Offers" />
     </AssociationSet>
-    <AssociationSet Name="FK_sourceId" Association="Self.FK_sourceId">
+    <AssociationSet Name="FK_sourceUserId" Association="Self.FK_sourceUserId">
       <End Role="Users" EntitySet="Users" />
       <End Role="Message" EntitySet="Messages" />
     </AssociationSet>
-    <AssociationSet Name="FK_targetId" Association="Self.FK_targetId">
+    <AssociationSet Name="FK_targetUserId" Association="Self.FK_targetUserId">
       <End Role="Users" EntitySet="Users" />
       <End Role="Message" EntitySet="Messages" />
-    </AssociationSet>
-    <AssociationSet Name="FK_RequestID" Association="Self.FK_RequestID">
-      <End Role="Request" EntitySet="Requests" />
-      <End Role="Notifications" EntitySet="Notifications" />
     </AssociationSet>
     <AssociationSet Name="FK_CreatorId" Association="Self.FK_CreatorId">
       <End Role="Users" EntitySet="Users" />

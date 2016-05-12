@@ -28,7 +28,6 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
-        public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Offer> Offers { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<User> Users { get; set; }

@@ -17,9 +17,29 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         // GET: Requests
         public ActionResult Index()
         {
-            var requests = db.Requests.Include(r => r.Category).Include(r => r.Notification).Include(r => r.User).Include(r => r.User1);
+            ViewBag.CategoryID = new SelectList(db.Categories, "id", "categoryName");
+            var requests = db.Requests.Include(r => r.Category).Include(r => r.User).Include(r => r.User1);
             return View(requests.ToList());
         }
+
+        [HttpPost]
+        public ActionResult Index(int categoryId, string offerTitle)
+        {
+            ViewBag.CategoryID = new SelectList(db.Categories, "id", "categoryName");
+
+            if (offerTitle != "")
+            {
+                ViewBag.OfferTitle = offerTitle;
+                var offers = db.Requests.Where(r => r.title.Contains(offerTitle) && r.categoryId == categoryId).Include(r => r.Category).Include(r => r.User).Include(r => r.User1);
+                return View(offers.ToList());
+            }
+            else
+            {
+                var offers = db.Requests.Where(r => r.categoryId == categoryId).Include(r => r.Category).Include(r => r.User).Include(r => r.User1);
+                return View(offers.ToList());
+            }
+        }
+
 
         // GET: Requests/Details/5
         public ActionResult Details(int? id)
@@ -33,6 +53,8 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CreatorId = request.User.id;
+            ViewBag.Title = request.title;
             return View(request);
         }
 
@@ -40,7 +62,6 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
         public ActionResult Create()
         {
             ViewBag.categoryId = new SelectList(db.Categories, "id", "categoryName");
-            ViewBag.id = new SelectList(db.Notifications, "id", "type");
             ViewBag.creatorId = new SelectList(db.Users, "id", "firstName");
             ViewBag.matchedUserID = new SelectList(db.Users, "id", "firstName");
             return View();
@@ -61,7 +82,6 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
             }
 
             ViewBag.categoryId = new SelectList(db.Categories, "id", "categoryName", request.categoryId);
-            ViewBag.id = new SelectList(db.Notifications, "id", "type", request.id);
             ViewBag.creatorId = new SelectList(db.Users, "id", "firstName", request.creatorId);
             ViewBag.matchedUserID = new SelectList(db.Users, "id", "firstName", request.matchedUserID);
             return View(request);
@@ -80,7 +100,6 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
                 return HttpNotFound();
             }
             ViewBag.categoryId = new SelectList(db.Categories, "id", "categoryName", request.categoryId);
-            ViewBag.id = new SelectList(db.Notifications, "id", "type", request.id);
             ViewBag.creatorId = new SelectList(db.Users, "id", "firstName", request.creatorId);
             ViewBag.matchedUserID = new SelectList(db.Users, "id", "firstName", request.matchedUserID);
             return View(request);
@@ -100,7 +119,6 @@ namespace _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.categoryId = new SelectList(db.Categories, "id", "categoryName", request.categoryId);
-            ViewBag.id = new SelectList(db.Notifications, "id", "type", request.id);
             ViewBag.creatorId = new SelectList(db.Users, "id", "firstName", request.creatorId);
             ViewBag.matchedUserID = new SelectList(db.Users, "id", "firstName", request.matchedUserID);
             return View(request);

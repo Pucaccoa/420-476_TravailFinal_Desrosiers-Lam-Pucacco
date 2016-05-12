@@ -1,0 +1,36 @@
+﻿@model _420_476_ProjetFinal_Desrosiers_Pucacco_Lam.Message
+
+@{
+    ViewBag.Title = "Message";
+}
+
+<h2>Message</h2>
+
+@using (Html.BeginForm("SendMessage", "Messaging", FormMethod.Post, new { id = "msgForm"}))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Envoyer un message</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Raw(ViewBag.Title)
+            @Html.Raw(ViewBag.CreatorId)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.message1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea name="message1" form="msgForm"></textarea>
+                @Html.ValidationMessageFor(model => model.message1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

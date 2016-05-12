@@ -26,19 +26,10 @@
       <EntityTypeMapping TypeName="BDProjetModel.Message">
         <MappingFragment StoreEntitySet="Message">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="targetId" ColumnName="targetId" />
+          <ScalarProperty Name="targetUserId" ColumnName="targetUserId" />
           <ScalarProperty Name="message1" ColumnName="message" />
-          <ScalarProperty Name="sourceId" ColumnName="sourceId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Notifications">
-      <EntityTypeMapping TypeName="BDProjetModel.Notification">
-        <MappingFragment StoreEntitySet="Notifications">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="requestId" ColumnName="requestId" />
-          <ScalarProperty Name="notifResult" ColumnName="notifResult" />
-          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="sourceUserId" ColumnName="sourceUserId" />
+          <ScalarProperty Name="title" ColumnName="title" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -80,6 +71,7 @@
           <ScalarProperty Name="password" ColumnName="password" />
           <ScalarProperty Name="image" ColumnName="image" />
           <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="email" ColumnName="email" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
